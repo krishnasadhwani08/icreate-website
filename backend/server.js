@@ -42,5 +42,11 @@ mongoose.connect(MONGODB_URI, {
   });
 
 app.use("/api/auth", authRoutes);
-
+app.get("/api/health", (req, res) => {
+  res.json({ 
+    status: "Server is running", 
+    mongoConnected: mongoose.connection.readyState === 1,
+    port: PORT
+  });
+});
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
